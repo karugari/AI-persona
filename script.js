@@ -1,5 +1,4 @@
-import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-import { personaHistory } from './persona.js';
+import { personaHistory } from "./persona.js";
 
 // DOM 요소들
 const apiKeyInput = document.getElementById("api-key-input");
@@ -29,37 +28,31 @@ function addMessage(text, sender) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// [기능 2] AI 응답 요청 (여기가 기억력의 핵심!)
+// ✨ 우리만의 백엔드(/api/chat)로 요청 보내기
 async function getAIResponse(prompt) {
-  const apiKey = apiKeyInput.value.trim();
-
-  if (!apiKey) {
-    return "⚠️ 상단에 Gemini API 키를 먼저 입력해주세요!";
-  }
-
   try {
-    // 1. 키가 바뀌었거나, 아직 채팅 세션이 없으면 새로 만듭니다.
-    if (!chatSession || currentApiKey !== apiKey) {
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // 서버로 대화 기록과 질문을 보냅니다.
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        history: chatHistory, // 지금까지의 대화 기록
+        message: prompt, // 방금 쓴 새 메시지
+      }),
+    });
 
-      // startChat()이 바로 '기억력'을 담당하는 함수입니다!
-      chatSession = model.startChat({
-        history: personaHistory
-      });
-      currentApiKey = apiKey; // 현재 키 저장
-    }
+    if (!response.ok) throw new Error("서버 통신 에러");
 
-    // 2. 이제 generateContent가 아니라 sendMessage를 씁니다.
-    // (이 함수가 알아서 대화 내역을 노트북에 적어서 보냅니다.)
-    const result = await chatSession.sendMessage(prompt);
-    const response = await result.response;
-    return response.text();
+    const data = await response.json();
+
+    // 성공적으로 답변을 받으면, 내 브라우저의 기억(chatHistory)에도 저장
+    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+    chatHistory.push({ role: "model", parts: [{ text: data.reply }] });
+
+    return data.reply;
   } catch (error) {
-    console.error("API Error:", error);
-    // 에러 나면 세션 초기화 (다시 시도하게)
-    chatSession = null;
-    return "⚠️ 에러가 발생했어요. (잠시 후 다시 시도하거나 키를 확인해주세요)";
+    console.error("Fetch Error:", error);
+    return "⚠️ エラーが発生しました。もう一度お試しください。"; // 에러 메시지도 일본어로!
   }
 }
 

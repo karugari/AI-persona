@@ -1,33 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Chatbot Start</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script type="module" src="script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1> AI Persona Chat </h1>
-        <input type="password" id="api-key-input" placeholder="Gemini API Key를 입력하세요 (저장 안 됨)">
+      <div class="header-content">
+        <h1>AI Persona Chat</h1>
+      </div>
     </header>
-   <main id="chat-messages">
-        <div class="message ai-message">
-            안녕하세요! 상단에 API 키를 입력하고 대화를 시작해주세요. 
-            (키는 서버에 저장되지 않고 님의 브라우저에서만 사용됩니다.)
-        </div>
+    <main id="chat-messages">
+      <div class="message ai-message">
+        はじめまして！キム・ギボムのAIアシスタントです。
+        面接の前に、私のスキルや経験について何でも聞いてください！下のボタンから質問を選ぶこともできます。
+      </div>
     </main>
 
     <footer>
-        <div id="quick-buttons">
-
-        </div>
-        <div id="input-area">
-            <input type="text" id="user-input" placeholder="메시지를 입력하세요...">
-            <button id="send-btn">전송</button>
-        </div>
+      <div id="quick-buttons"></div>
+      <div id="input-area">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="メッセージを入力してください..."
+        />
+        <button id="send-btn">送信</button>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>
