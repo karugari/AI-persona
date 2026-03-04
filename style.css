@@ -1,0 +1,112 @@
+/* 1. 전체 레이아웃 (3단 구조) */
+body {
+    display: flex;
+    flex-direction: column; /* 위에서 아래로 쌓기 */
+    height: 100vh;          /* 화면 전체 높이 사용 */
+    margin: 0;
+    background-color: #f0f2f5;
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+}
+
+/* 2. [Header] 상단 고정 영역 */
+header {
+    background-color: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    z-index: 10; /* 그림자가 채팅방 위에 뜨도록 */
+}
+
+.header-content {
+    max-width: 800px; /* 너무 넓어지지 않게 */
+    margin: 0 auto;   /* 가운데 정렬 */
+    display: flex;
+    justify-content: space-between; /* 양끝 정렬 */
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+#api-key-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    font-size: 0.9rem;
+}
+
+/* 3. [Main] 대화 영역 (스크롤) */
+main {
+    flex: 1; /* 남은 공간 모두 차지 (가장 중요!) */
+    overflow-y: auto; /* 내용 넘치면 스크롤 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 말풍선 스타일 */
+.message {
+    max-width: 70%;
+    padding: 12px 18px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    word-break: break-word; /* 긴 단어 줄바꿈 */
+}
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+    border-bottom-right-radius: 4px; /* 말풍선 모양 내기 */
+}
+.ai-message {
+    align-self: flex-start;
+    background-color: white;
+    color: #333;
+    border: 1px solid #eee;
+    border-bottom-left-radius: 4px;
+}
+
+/* 4. [Footer] 하단 입력 영역 */
+footer {
+    background-color: white;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+#input-area {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1rem;
+}
+#user-input:focus { border-color: #007bff; }
+
+#send-btn {
+    padding: 0 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#send-btn:hover { background-color: #0056b3; }

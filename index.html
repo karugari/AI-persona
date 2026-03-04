@@ -8,7 +8,23 @@
     <script type="module" src="script.js"></script>
 </head>
 <body>
-    <h1>Hello, AI World</h1>
-    <p>1월 2주차 미션 시작</p>
+    <header>
+        <h1> AI Persona Chat </h1>
+        <input type="password" id="api-key-input" placeholder="Gemini API Key를 입력하세요 (저장 안 됨)">
+    </header>
+   <main id="chat-messages">
+        <div class="message ai-message">
+            안녕하세요! 상단에 API 키를 입력하고 대화를 시작해주세요. 
+            (키는 서버에 저장되지 않고 님의 브라우저에서만 사용됩니다.)
+        </div>
+    </main>
+
+    <footer>
+        <div id="input-area">
+            <input type="text" id="user-input" placeholder="메시지를 입력하세요...">
+            <button id="send-btn">전송</button>
+        </div>
+    </footer>
+
 </body>
 </html>
