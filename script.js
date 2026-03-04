@@ -5,6 +5,15 @@ const apiKeyInput = document.getElementById("api-key-input");
 const chatMessages = document.getElementById("chat-messages");
 const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
+const quickButtonsContainer = document.getElementById("quick-buttons");
+const suggestionQuestions = [
+    "자기소개 부탁드립니다.",
+    "이 회사에 지원한 동기는 무엇인가요?",
+    "자신의 강점은 무엇인가요?",
+    "기술 스택에 대해 설명해주세요.",
+    "100일 챌린지가 무엇인가요?",
+    "일본에서 일하고 싶은 이유는?"
+];
 
 // 🧠 [핵심] 대화 내용을 기억할 변수 (전역 변수)
 let chatSession = null; 
@@ -42,7 +51,7 @@ async function getAIResponse(prompt) {
                         role: "user",
                         parts: [{ text: `
                             [지시 사항]
-                            너는 지금부터 '웹 개발자 취업을 준비하는 [지원자 이름]'의 AI 페르소나야.
+                            너는 지금부터 '웹 개발자 취업을 준비하는 [金記範(キムギボム)]'의 AI 페르소나야.
                             지금 너와 대화하는 사람은 '일본 IT 기업의 채용 담당자'야.
                             아래의 [내 정보]를 바탕으로, 채용 담당자의 질문에 대해 예의 바르고(일본 비즈니스 매너, 정중어/경어 사용), 열정적인 태도로 일본어로 대답해.
                             
@@ -108,6 +117,25 @@ async function handleSendMessage() {
     loadingDiv.remove();
     addMessage(aiReply, "ai");
 }
+// [기능 4] 추천 질문 버튼 만들기 (새로 추가된 함수)
+function createQuickButtons() {
+    quickButtonsContainer.innerHTML = ""; // 초기화
+
+    suggestionQuestions.forEach(question => {
+        const btn = document.createElement("button");
+        btn.classList.add("quick-btn"); // CSS 클래스 적용
+        btn.innerText = question;
+        
+        // 버튼 클릭 시 채팅 전송되는 기능 연결
+        btn.addEventListener("click", () => {
+            userInput.value = question; // 입력창에 질문 넣기
+            handleSendMessage();        // 전송 함수 실행
+        });
+
+        quickButtonsContainer.appendChild(btn);
+    });
+}
+createQuickButtons();
 
 // 이벤트 리스너
 sendBtn.addEventListener("click", handleSendMessage);
