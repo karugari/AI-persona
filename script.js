@@ -1,7 +1,6 @@
 import { personaHistory } from "./persona.js";
 
 // DOM 요소들
-const apiKeyInput = document.getElementById("api-key-input");
 const chatMessages = document.getElementById("chat-messages");
 const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
@@ -13,10 +12,7 @@ const suggestionQuestions = [
   "日本で働きたい理由は何ですか？",
   "将来はどのようなエンジニアになりたいですか？",
 ];
-
-// 🧠 [핵심] 대화 내용을 기억할 변수 (전역 변수)
-let chatSession = null;
-let currentApiKey = null;
+let chatHistory = [...personaHistory];
 
 // [기능 1] 화면에 메시지 추가
 function addMessage(text, sender) {
