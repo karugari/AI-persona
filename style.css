@@ -50,6 +50,12 @@ main {
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
+    -ms-overflow-style: none; /* 파이어폭스, IE, 엣지용 */
+    scrollbar-width: none;
+}
+
+main::-webkit-scrollbar {
+    display: none;
 }
 
 /* 말풍선 스타일 */
@@ -114,9 +120,9 @@ footer {
 #quick-buttons {
     padding: 10px 20px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    overflow-x: auto; 
-    white-space: nowrap; 
     background-color: #f8f9fa; 
     border-top: 1px solid #eee;
 }
